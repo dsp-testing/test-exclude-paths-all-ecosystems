@@ -1,9 +1,0 @@
-name: legacy-conda-env
-channels:
-  - conda-forge
-  - defaults
-dependencies:
-  - python=3.8
-  - numpy=1.23
-  - pandas=1.4
-  - requests=2.27

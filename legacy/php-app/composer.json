@@ -1,8 +1,0 @@
-{
-    "name": "example/legacy-php-app",
-    "require": {
-        "symfony/console": "^5.4",
-        "guzzlehttp/guzzle": "^7.3",
-        "monolog/monolog": "^2.7"
-    }
-}

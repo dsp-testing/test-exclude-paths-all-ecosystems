@@ -1,128 +1,17 @@
 version: 2
-enable-beta-ecosystems: true
 updates:
-  # Bundler (Ruby)
+  # Bundler ecosystem - include only the include-me folder
   - package-ecosystem: "bundler"
-    directory: "/"
+    directory: "/bundler"
     schedule:
       interval: "weekly"
     exclude-paths:
-      - "legacy/**"
+      - "exclude-me/**"
 
-  # npm (Node.js)
-  - package-ecosystem: "npm"
-    directory: "/"
-    schedule:
-      interval: "weekly"
-    exclude-paths:
-      - "legacy/**"
-
-  # Go modules
-  - package-ecosystem: "gomod"
-    directory: "/"
-    schedule:
-      interval: "weekly"
-    exclude-paths:
-      - "legacy/**"
-
-  # Python
-  - package-ecosystem: "pip"
-    directory: "/"
-    schedule:
-      interval: "weekly"
-    exclude-paths:
-      - "legacy/**"
-
-  # Maven (Java)
-  - package-ecosystem: "maven"
-    directory: "/"
-    schedule:
-      interval: "weekly"
-    exclude-paths:
-      - "legacy/**"
-
-  # Gradle (Java)
-  - package-ecosystem: "gradle"
-    directory: "/"
-    schedule:
-      interval: "weekly"
-    exclude-paths:
-      - "legacy/**"
-
-  # Composer (PHP)
-  - package-ecosystem: "composer"
-    directory: "/"
-    schedule:
-      interval: "weekly"
-    exclude-paths:
-      - "legacy/**"
-
-  # Cargo (Rust)
+  # Cargo ecosystem - include only the include-me folder  
   - package-ecosystem: "cargo"
-    directory: "/"
+    directory: "/cargo"
     schedule:
       interval: "weekly"
     exclude-paths:
-      - "legacy/**"
-
-  # Docker
-  - package-ecosystem: "docker"
-    directory: "/"
-    schedule:
-      interval: "weekly"
-    exclude-paths:
-      - "legacy/**"
-
-  # GitHub Actions
-  - package-ecosystem: "github-actions"
-    directory: "/"
-    schedule:
-      interval: "weekly"
-    exclude-paths:
-      - "legacy/**"
-
-  # Terraform
-  - package-ecosystem: "terraform"
-    directory: "/"
-    schedule:
-      interval: "weekly"
-    exclude-paths:
-      - "legacy/**"
-
-  # Elm
-  - package-ecosystem: "elm"
-    directory: "/"
-    schedule:
-      interval: "weekly"
-    exclude-paths:
-      - "legacy/**"
-
-  # Mix (Elixir)
-  - package-ecosystem: "mix"
-    directory: "/"
-    schedule:
-      interval: "weekly"
-    exclude-paths:
-      - "legacy/**"
-
-  # Pub (Dart)
-  - package-ecosystem: "pub"
-    directory: "/"
-    schedule:
-      interval: "weekly"
-    exclude-paths:
-      - "legacy/**"
-
-  # Swift
-  - package-ecosystem: "swift"
-    directory: "/"
-    schedule:
-      interval: "weekly"
-    exclude-paths:
-      - "legacy/**"
-
-  # Conda
-  - package-ecosystem: "conda"
-    directory: "/"
-    schedule:
-      interval: "weekly"
+      - "exclude-me/**"

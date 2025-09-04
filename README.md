@@ -1,75 +1,62 @@
-# Test Repository for Exclude-Paths Functionality
+# Dependabot Exclude Paths Testing Repository
 
-This repository contains a comprehensive test setup for the `exclude-paths` functionality across all Dependabot-supported ecosystems.
+This repository is designed to test Dependabot's `exclude-paths` functionality across different package ecosystems.
 
-## Structure
+## Repository Structure
 
 ```
-test-exclude-paths-all-ecosystems/
-├── .github/dependabot.yml           # Dependabot configuration with exclude-paths
-├── README.md                        # This file
-├── main/                           # Main applications (SHOULD be processed)
-│   ├── ruby-app/
-│   ├── node-app/  
-│   ├── go-app/
-│   ├── python-app/
-│   ├── java-maven/
-│   ├── java-gradle/
-│   ├── php-app/
-│   ├── rust-app/
-│   ├── docker-app/
-│   ├── terraform-app/
-│   ├── elm-app/
-│   ├── elixir-app/
-│   ├── dart-app/
-│   ├── swift-app/
-│   └── conda-app/
-└── legacy/                         # Legacy applications (SHOULD be excluded)
-    ├── ruby-app/
-    ├── node-app/
-    ├── go-app/
-    ├── python-app/
-    ├── java-maven/
-    ├── java-gradle/
-    ├── php-app/
-    ├── rust-app/
-    ├── docker-app/
-    ├── terraform-app/
-    ├── elm-app/
-    ├── elixir-app/
-    ├── dart-app/
-    ├── swift-app/
-    └── conda-app/
+├── bundler/
+│   ├── include-me/           # These files SHOULD be processed by Dependabot
+│   │   ├── Gemfile
+│   │   └── Gemfile.lock
+│   └── exclude-me/           # These files should NOT be processed (excluded)
+│       ├── Gemfile
+│       └── Gemfile.lock
+├── cargo/
+│   ├── include-me/           # These files SHOULD be processed by Dependabot
+│   │   ├── Cargo.toml
+│   │   └── Cargo.lock
+│   └── exclude-me/           # These files should NOT be processed (excluded)
+│       ├── Cargo.toml
+│       └── Cargo.lock
+└── .github/
+    └── dependabot.yml        # Dependabot configuration with exclude-paths
 ```
 
-## Testing Strategy
+## Test Scenarios
 
-Each ecosystem has:
-1. **Main app** - Contains dependencies that SHOULD be processed by Dependabot
-2. **Legacy app** - Contains dependencies that SHOULD be excluded by the `exclude-paths: ["legacy/**"]` configuration
+### Bundler Ecosystem
+- **Include**: `bundler/include-me/` - Contains a Rails application with various gems
+- **Exclude**: `bundler/exclude-me/` - Contains a Sinatra application (should be ignored)
+
+### Cargo Ecosystem  
+- **Include**: `cargo/include-me/` - Contains a web server project with various dependencies
+- **Exclude**: `cargo/exclude-me/` - Contains a CLI tool project (should be ignored)
 
 ## Expected Behavior
 
-When Dependabot runs:
-- Dependencies in `main/*/` directories should be processed and receive update PRs
-- Dependencies in `legacy/*/` directories should be ignored due to exclude-paths configuration
+When Dependabot runs, it should:
 
-## Ecosystems Tested
+1. ✅ Process and create PRs for dependencies in:
+   - `bundler/include-me/Gemfile`
+   - `cargo/include-me/Cargo.toml`
 
-- Ruby (Bundler)
-- Node.js (npm)
-- Go (go modules) 
-- Python (pip)
-- Java (Maven & Gradle)
-- PHP (Composer)
-- Rust (Cargo)
-- Docker
-- GitHub Actions
-- Terraform
-- Elm
-- Elixir (Hex)
-- Dart (Pub)
-- Swift
-- Conda
+2. ❌ Ignore dependencies in:
+   - `bundler/exclude-me/Gemfile` (excluded by path pattern)
+   - `cargo/exclude-me/Cargo.toml` (excluded by path pattern)
 
-Each ecosystem includes minimal but valid manifest files with real dependencies to test the exclude functionality.
+## Configuration Details
+
+The `.github/dependabot.yml` uses:
+- `exclude-paths: ["bundler/exclude-me/**"]` for the bundler ecosystem
+- `exclude-paths: ["cargo/exclude-me/**"]` for the cargo ecosystem
+
+This ensures that only the `include-me` folders are processed for dependency updates.
+
+## Testing
+
+To verify the exclude-paths functionality:
+
+1. Monitor Dependabot PRs after pushing this configuration
+2. Check that PRs are only created for dependencies in the `include-me` folders
+3. Verify that no PRs are created for dependencies in the `exclude-me` folders
