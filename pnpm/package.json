@@ -3,6 +3,10 @@
   "version": "1.0.0",
   "private": true,
   "description": "PNPM workspace for testing Dependabot exclude-paths",
+  "workspaces": [
+    "include-me",
+    "exclude-me"
+  ],
   "scripts": {
     "build": "pnpm -r build",
     "test": "pnpm -r test",

@@ -16,7 +16,7 @@ updates:
     exclude-paths:
       - "exclude-me/**"
 
-  # PNPM ecosystem - scan pnpm folder but exclude exclude-me
+  # PNPM ecosystem - scan pnpm workspace but exclude exclude-me
   - package-ecosystem: "npm"
     directory: "/pnpm"
     schedule:
