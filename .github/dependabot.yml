@@ -126,5 +126,3 @@ updates:
     directory: "/"
     schedule:
       interval: "weekly"
-    exclude-paths:
-      - "legacy/**"
