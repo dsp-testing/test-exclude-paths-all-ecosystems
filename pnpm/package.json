@@ -1,0 +1,21 @@
+{
+  "name": "pnpm-workspace-root",
+  "version": "1.0.0",
+  "private": true,
+  "description": "PNPM workspace for testing Dependabot exclude-paths",
+  "scripts": {
+    "build": "pnpm -r build",
+    "test": "pnpm -r test",
+    "dev": "pnpm -r dev"
+  },
+  "devDependencies": {
+    "eslint": "^8.45.0",
+    "prettier": "^3.0.0",
+    "typescript": "^5.0.0"
+  },
+  "pnpm": {
+    "overrides": {
+      "lodash": "^4.17.21"
+    }
+  }
+}

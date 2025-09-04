@@ -6,8 +6,6 @@ This repository is designed to test Dependabot's `exclude-paths` functionality a
 
 ```
 ├── bundler/
-│   ├── Gemfile                   # Root level - SHOULD be processed by Dependabot
-│   ├── Gemfile.lock              # Root level - SHOULD be processed by Dependabot
 │   ├── include-me/               # These files SHOULD be processed by Dependabot
 │   │   ├── Gemfile
 │   │   └── Gemfile.lock
@@ -15,14 +13,21 @@ This repository is designed to test Dependabot's `exclude-paths` functionality a
 │       ├── Gemfile
 │       └── Gemfile.lock
 ├── cargo/
-│   ├── Cargo.toml                # Root level - SHOULD be processed by Dependabot
-│   ├── Cargo.lock                # Root level - SHOULD be processed by Dependabot
+│   ├── Cargo.toml                # Workspace configuration
 │   ├── include-me/               # These files SHOULD be processed by Dependabot
 │   │   ├── Cargo.toml
 │   │   └── Cargo.lock
 │   └── exclude-me/               # These files should NOT be processed (excluded)
 │       ├── Cargo.toml
 │       └── Cargo.lock
+├── pnpm/
+│   ├── package.json              # Root workspace package.json
+│   ├── pnpm-workspace.yaml       # PNPM workspace configuration
+│   ├── .npmrc                    # PNPM configuration
+│   ├── include-me/               # These files SHOULD be processed by Dependabot
+│   │   └── package.json          # React app dependencies
+│   └── exclude-me/               # These files should NOT be processed (excluded)
+│       └── package.json          # Node.js API dependencies
 └── .github/
     └── dependabot.yml            # Dependabot configuration with exclude-paths
 ```
@@ -30,36 +35,49 @@ This repository is designed to test Dependabot's `exclude-paths` functionality a
 ## Test Scenarios
 
 ### Bundler Ecosystem
-- **Root Level**: `bundler/Gemfile` - Contains basic dependencies (should be processed)
 - **Include**: `bundler/include-me/` - Contains a Rails application with various gems
 - **Exclude**: `bundler/exclude-me/` - Contains a Sinatra application (should be ignored)
 
 ### Cargo Ecosystem  
-- **Root Level**: `cargo/Cargo.toml` - Contains basic dependencies (should be processed)
 - **Include**: `cargo/include-me/` - Contains a web server project with various dependencies
 - **Exclude**: `cargo/exclude-me/` - Contains a CLI tool project (should be ignored)
+
+### PNPM Ecosystem
+- **Root**: `pnpm/package.json` - Workspace root with dev dependencies (should be processed)
+- **Include**: `pnpm/include-me/` - Contains a React application with UI dependencies
+- **Exclude**: `pnpm/exclude-me/` - Contains a Node.js API server (should be ignored)
 
 ## Expected Behavior
 
 When Dependabot runs, it should:
 
 1. ✅ Process and create PRs for dependencies in:
-   - `bundler/Gemfile` (root level)
    - `bundler/include-me/Gemfile`
-   - `cargo/Cargo.toml` (root level)
    - `cargo/include-me/Cargo.toml`
+   - `pnpm/package.json` (root level)
+   - `pnpm/include-me/package.json`
 
 2. ❌ Ignore dependencies in:
    - `bundler/exclude-me/Gemfile` (excluded by path pattern)
    - `cargo/exclude-me/Cargo.toml` (excluded by path pattern)
+   - `pnpm/exclude-me/package.json` (excluded by path pattern)
 
 ## Configuration Details
 
 The `.github/dependabot.yml` uses:
-- `exclude-paths: ["bundler/exclude-me/**"]` for the bundler ecosystem
-- `exclude-paths: ["cargo/exclude-me/**"]` for the cargo ecosystem
+- `exclude-paths: ["exclude-me/**"]` for the bundler ecosystem
+- `exclude-paths: ["exclude-me/**"]` for the cargo ecosystem  
+- `exclude-paths: ["exclude-me/**"]` for the npm/pnpm ecosystem
 
 This ensures that only the `include-me` folders are processed for dependency updates.
+
+## PNPM Workspace Features
+
+The PNPM setup includes:
+- **Workspace configuration**: `pnpm-workspace.yaml` defines workspace packages
+- **Root package.json**: Contains shared dev dependencies and workspace scripts
+- **PNPM configuration**: `.npmrc` with PNPM-specific settings
+- **Package isolation**: Each workspace package has its own dependencies
 
 ## Testing
 
