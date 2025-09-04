@@ -6,30 +6,36 @@ This repository is designed to test Dependabot's `exclude-paths` functionality a
 
 ```
 ├── bundler/
-│   ├── include-me/           # These files SHOULD be processed by Dependabot
+│   ├── Gemfile                   # Root level - SHOULD be processed by Dependabot
+│   ├── Gemfile.lock              # Root level - SHOULD be processed by Dependabot
+│   ├── include-me/               # These files SHOULD be processed by Dependabot
 │   │   ├── Gemfile
 │   │   └── Gemfile.lock
-│   └── exclude-me/           # These files should NOT be processed (excluded)
+│   └── exclude-me/               # These files should NOT be processed (excluded)
 │       ├── Gemfile
 │       └── Gemfile.lock
 ├── cargo/
-│   ├── include-me/           # These files SHOULD be processed by Dependabot
+│   ├── Cargo.toml                # Root level - SHOULD be processed by Dependabot
+│   ├── Cargo.lock                # Root level - SHOULD be processed by Dependabot
+│   ├── include-me/               # These files SHOULD be processed by Dependabot
 │   │   ├── Cargo.toml
 │   │   └── Cargo.lock
-│   └── exclude-me/           # These files should NOT be processed (excluded)
+│   └── exclude-me/               # These files should NOT be processed (excluded)
 │       ├── Cargo.toml
 │       └── Cargo.lock
 └── .github/
-    └── dependabot.yml        # Dependabot configuration with exclude-paths
+    └── dependabot.yml            # Dependabot configuration with exclude-paths
 ```
 
 ## Test Scenarios
 
 ### Bundler Ecosystem
+- **Root Level**: `bundler/Gemfile` - Contains basic dependencies (should be processed)
 - **Include**: `bundler/include-me/` - Contains a Rails application with various gems
 - **Exclude**: `bundler/exclude-me/` - Contains a Sinatra application (should be ignored)
 
 ### Cargo Ecosystem  
+- **Root Level**: `cargo/Cargo.toml` - Contains basic dependencies (should be processed)
 - **Include**: `cargo/include-me/` - Contains a web server project with various dependencies
 - **Exclude**: `cargo/exclude-me/` - Contains a CLI tool project (should be ignored)
 
@@ -38,7 +44,9 @@ This repository is designed to test Dependabot's `exclude-paths` functionality a
 When Dependabot runs, it should:
 
 1. ✅ Process and create PRs for dependencies in:
+   - `bundler/Gemfile` (root level)
    - `bundler/include-me/Gemfile`
+   - `cargo/Cargo.toml` (root level)
    - `cargo/include-me/Cargo.toml`
 
 2. ❌ Ignore dependencies in:

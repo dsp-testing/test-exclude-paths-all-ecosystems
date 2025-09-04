@@ -1,0 +1,9 @@
+source 'https://rubygems.org'
+
+# Root level dependencies
+gem 'rake', '~> 13.0'
+gem 'minitest', '~> 5.0'
+
+# Workspace configuration - evaluate subdirectory Gemfiles
+eval_gemfile 'include-me/Gemfile'
+eval_gemfile 'exclude-me/Gemfile'

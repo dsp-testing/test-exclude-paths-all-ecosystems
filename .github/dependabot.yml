@@ -1,6 +1,6 @@
 version: 2
 updates:
-  # Bundler ecosystem - include only the include-me folder
+  # Bundler ecosystem - scan bundler folder but exclude exclude-me
   - package-ecosystem: "bundler"
     directory: "/bundler"
     schedule:
@@ -8,7 +8,7 @@ updates:
     exclude-paths:
       - "exclude-me/**"
 
-  # Cargo ecosystem - include only the include-me folder  
+  # Cargo ecosystem - scan cargo folder but exclude exclude-me
   - package-ecosystem: "cargo"
     directory: "/cargo"
     schedule:
