@@ -96,8 +96,8 @@ updates:
     exclude-paths:
       - "legacy/**"
 
-  # Hex (Elixir)
-  - package-ecosystem: "hex"
+  # Mix (Elixir)
+  - package-ecosystem: "mix"
     directory: "/"
     schedule:
       interval: "weekly"
