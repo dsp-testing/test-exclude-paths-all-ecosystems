@@ -23,3 +23,11 @@ updates:
       interval: "weekly"
     exclude-paths:
       - "exclude-me/**"
+
+  # Bun ecosystem - scan bun workspace but exclude exclude-me
+  - package-ecosystem: "npm"
+    directory: "/bun"
+    schedule:
+      interval: "weekly"
+    exclude-paths:
+      - "exclude-me/**"

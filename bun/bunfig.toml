@@ -1,0 +1,20 @@
+# Bun configuration file
+[install]
+# Configure package manager behavior
+cache = true
+lockfile = true
+production = false
+
+[install.scopes]
+# Workspace configuration
+"@workspace" = { "registry" = "https://registry.npmjs.org/" }
+
+# Test configuration
+[test]
+coverage = true
+coverageDir = "coverage"
+
+# Build configuration  
+[build]
+target = "node"
+format = "esm"

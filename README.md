@@ -21,13 +21,20 @@ This repository is designed to test Dependabot's `exclude-paths` functionality a
 │       ├── Cargo.toml
 │       └── Cargo.lock
 ├── pnpm/
-│   ├── package.json              # Root workspace package.json
+│   ├── package.json              # Root workspace package.json with workspaces
 │   ├── pnpm-workspace.yaml       # PNPM workspace configuration
 │   ├── .npmrc                    # PNPM configuration
 │   ├── include-me/               # These files SHOULD be processed by Dependabot
 │   │   └── package.json          # React app dependencies
 │   └── exclude-me/               # These files should NOT be processed (excluded)
 │       └── package.json          # Node.js API dependencies
+├── bun/
+│   ├── package.json              # Root workspace package.json with workspaces
+│   ├── bunfig.toml               # Bun configuration
+│   ├── include-me/               # These files SHOULD be processed by Dependabot
+│   │   └── package.json          # Bun web app dependencies (Hono, Drizzle)
+│   └── exclude-me/               # These files should NOT be processed (excluded)
+│       └── package.json          # Bun CLI tool dependencies
 └── .github/
     └── dependabot.yml            # Dependabot configuration with exclude-paths
 ```
@@ -47,6 +54,11 @@ This repository is designed to test Dependabot's `exclude-paths` functionality a
 - **Include**: `pnpm/include-me/` - Contains a React application with UI dependencies
 - **Exclude**: `pnpm/exclude-me/` - Contains a Node.js API server (should be ignored)
 
+### Bun Ecosystem
+- **Root**: `bun/package.json` - Workspace root with dev dependencies (should be processed)
+- **Include**: `bun/include-me/` - Contains a Bun web app with Hono framework and Drizzle ORM
+- **Exclude**: `bun/exclude-me/` - Contains a Bun CLI tool (should be ignored)
+
 ## Expected Behavior
 
 When Dependabot runs, it should:
@@ -56,8 +68,14 @@ When Dependabot runs, it should:
    - `cargo/include-me/Cargo.toml`
    - `pnpm/package.json` (root level)
    - `pnpm/include-me/package.json`
+   - `bun/package.json` (root level)
+   - `bun/include-me/package.json`
 
 2. ❌ Ignore dependencies in:
+   - `bundler/exclude-me/Gemfile` (excluded by path pattern)
+   - `cargo/exclude-me/Cargo.toml` (excluded by path pattern)
+   - `pnpm/exclude-me/package.json` (excluded by path pattern)
+   - `bun/exclude-me/package.json` (excluded by path pattern)
    - `bundler/exclude-me/Gemfile` (excluded by path pattern)
    - `cargo/exclude-me/Cargo.toml` (excluded by path pattern)
    - `pnpm/exclude-me/package.json` (excluded by path pattern)
