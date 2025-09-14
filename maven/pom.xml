@@ -11,18 +11,8 @@
   <name>Sample App</name>
   <description>A simple Maven project for Dependabot exclude-paths testing</description>
 
-  <dependencies>
-    <dependency>
-      <groupId>junit</groupId>
-      <artifactId>junit</artifactId>
-      <version>4.12</version>
-      <scope>test</scope>
-    </dependency>
-
-    <dependency>
-       <groupId>com.hedera.hashgraph</groupId>
-       <artifactId>base-crypto</artifactId>
-       <version>0.63.8</version>
-    </dependency>
-  </dependencies>
+  <modules>
+     <module>include-me</module>
+     <module>exclude-me</module>
+  </modules>
 </project>
