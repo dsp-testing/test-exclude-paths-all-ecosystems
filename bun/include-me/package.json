@@ -11,6 +11,6 @@
   "dependencies": {
     "hono": "^3.5.0",
     "zod": "^3.22.0",
-    "drizzle-orm": "^0.28.0"
+    "drizzle-orm": "^0.44.5"
   }
 }
